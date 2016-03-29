@@ -62,14 +62,14 @@ class API implements APIInterface
     {
         $objects = [];
 
-        $params['limit'] = !array_key_exists('limit', $params) ? 20 : $params['limit'];
-        $params['offset'] = !array_key_exists('offset', $params) ? 0 : $params['offset'];
+        $params['limit']  = ! array_key_exists('limit', $params) ? 20 : $params['limit'];
+        $params['offset'] = ! array_key_exists('offset', $params) ? 0 : $params['offset'];
 
         do {
             $this->rateLimit();
-            $resultSet        = json_decode($this->simpleCurl($path, $params));
-            $more             = $resultSet->meta->next;
-            $objects          = array_merge($objects, $resultSet->objects);
+            $resultSet = json_decode($this->simpleCurl($path, $params));
+            $more      = $resultSet->meta->next;
+            $objects   = array_merge($objects, $resultSet->objects);
             $params['offset'] += $params['limit'];
         } while ($more !== null);
 
@@ -107,7 +107,7 @@ class API implements APIInterface
                     $path .= '/representatives';
                 }
             }
-        } else if(!array_key_exists('sets', $params) && !array_key_exists('limit', $params)) {
+        } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
             // Note: To get all boundaries we need to amp up the limit to not hit max execution time.
             $params['limit'] = 1000;
         }
@@ -118,10 +118,12 @@ class API implements APIInterface
     public function representativeSets($set = null)
     {
         $path = 'representative-sets';
-        if($set !== null){
-            $path .= '/'.$set;
+        if ($set !== null) {
+            $path .= '/' . $set;
+
             return $this->get($path);
         }
+
         return $this->getAll($path);
     }
 
@@ -175,10 +177,17 @@ class API implements APIInterface
         $ch = curl_init();
         curl_setopt_array($ch, ( $options + $defaults ));
 
+
+
         if ( ! $result = curl_exec($ch)) {
-            var_dump(curl_error($ch));
             error_log(curl_error($ch));
         }
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if ($httpCode !== 200) {
+            return false;
+        }
+
         curl_close($ch);
 
         return $result;
