@@ -2,6 +2,7 @@
   "name": "Seanmcn/php-represent",
   "description": "A PHP library for http://represent.opennorth.ca/",
   "keywords": [
+    "opennorth",
     "represent",
     "politics",
     "canada",
@@ -24,9 +25,8 @@
     "php": "^5.4|^7.0"
   },
   "require-dev": {
-    "fabpot/php-cs-fixer": "^1.9",
     "phpunit/phpunit": "4.8.*",
-    "satooshi/php-coveralls": "1.0.*"
+    "squizlabs/php_codesniffer": "2.*"
   },
   "autoload": {
     "psr-4": {
