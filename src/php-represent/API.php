@@ -4,27 +4,56 @@ namespace PHPRepresent;
 
 use PHPRepresent\Interfaces\APIInterface;
 
+/**
+ * Class API
+ * @package PHPRepresent
+ */
 class API implements APIInterface
 {
 
+    /**
+     * @var string
+     */
     protected $apiUrl = 'https://represent.opennorth.ca/';
+    /**
+     * @var bool
+     */
     protected $secure = true;
+    /**
+     * @var int
+     */
     protected $ratePeriod = 60;
+    /**
+     * @var int
+     */
     protected $rateLimit = 60;
+    /**
+     * @var array
+     */
     protected $rateHistory = [];
 
 
+    /**
+     * @return void
+     */
     public function setInsecure()
     {
         $this->apiUrl = 'http://represent.opennorth.ca/';
         $this->secure = false;
     }
 
+    /**
+     * @param $limit
+     * @return void
+     */
     public function setRateLimit($limit)
     {
         $this->rateLimit = $limit;
     }
 
+    /**
+     *
+     */
     public function rateLimit()
     {
         $begin     = new \DateTime(date("Y-m-d H:i:s", strtotime("1 minute ago")));
@@ -47,6 +76,13 @@ class API implements APIInterface
         $rateHistory[] = date("Y-m-d H:i:s");
     }
 
+    /**
+     * @param string $path
+     * @param array $params
+     * @param bool|true $throttle
+     *
+     * @return bool|mixed
+     */
     public function get($path, array $params = [], $throttle = true)
     {
         if ($throttle) {
@@ -58,6 +94,12 @@ class API implements APIInterface
         return $response;
     }
 
+    /**
+     * @param $path
+     * @param array $params
+     *
+     * @return string
+     */
     public function getAll($path, array $params = [])
     {
         $objects = [];
@@ -76,6 +118,11 @@ class API implements APIInterface
         return json_encode($objects);
     }
 
+    /**
+     * @param string $postcode
+     *
+     * @return bool|mixed
+     */
     public function postcode($postcode)
     {
         $path = 'postcodes/' . strtoupper($postcode);
@@ -83,6 +130,12 @@ class API implements APIInterface
         return $this->get($path);
     }
 
+    /**
+     * @param null $name
+     * @param array $params
+     *
+     * @return bool|mixed|string
+     */
     public function boundarySets($name = null, array $params = [])
     {
         $path = 'boundary-sets';
@@ -95,6 +148,14 @@ class API implements APIInterface
         return $this->getAll($path, $params);
     }
 
+    /**
+     * @param null $boundarySet
+     * @param null $name
+     * @param bool|false $representatives
+     * @param array $params
+     *
+     * @return mixed|string
+     */
     public function boundaries($boundarySet = null, $name = null, $representatives = false, array $params = [])
     {
         $path = 'boundaries';
@@ -115,6 +176,11 @@ class API implements APIInterface
         return $this->getAll($path, $params);
     }
 
+    /**
+     * @param null $set
+     *
+     * @return bool|mixed|string
+     */
     public function representativeSets($set = null)
     {
         $path = 'representative-sets';
@@ -127,21 +193,71 @@ class API implements APIInterface
         return $this->getAll($path);
     }
 
+    /**
+     * @param null $set
+     * @param array $params
+     *
+     * @return string
+     */
     public function representatives($set = null, array $params = [])
     {
-        // TODO: Implement representatives() method.
+        $path = 'representatives';
+
+        if($set !== null) {
+            $path .= '/'.$set;
+        } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
+            // Note: To get all representatives  we need to amp up the limit to not hit max execution time.
+            $params['limit'] = 1000;
+        }
+
+        return $this->getAll($path, $params);
     }
 
+    /**
+     * @param null $set
+     *
+     * @return bool|mixed|string
+     */
     public function elections($set = null)
     {
-        // TODO: Implement elections() method.
+        //Todo: Test when has data
+        $path = 'elections';
+        if ($set !== null) {
+            $path .= '/' . $set;
+            return $this->get($path);
+        }
+
+        return $this->getAll($path);
     }
 
+    /**
+     * @param null $set
+     * @param array $params
+     *
+     * @return mixed|string
+     */
     public function candidates($set = null, array $params = [])
     {
-        // TODO: Implement candidates() method.
+        //Todo: Test when has data
+        $path = 'candidates';
+
+        if($set !== null) {
+            $path .= '/'.$set;
+        } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
+            // Note: To get all candidates I'm guessing we need to amp up the limit to not hit max execution time.
+            $params['limit'] = 1000;
+        }
+
+        return $this->getAll($path, $params);
     }
 
+    /**
+     * @param $path
+     * @param array $params
+     * @param array $options
+     *
+     * @return bool|mixed
+     */
     protected function simpleCurl($path, $params = [], $options = [])
     {
 
