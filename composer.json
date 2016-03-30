@@ -8,9 +8,7 @@
     "canada",
     "api",
     "php",
-    "library",
-    "psr-6",
-    "psr6"
+    "library"
   ],
   "homepage": "https://github.com/seanmcn/php-represent",
   "type": "library",
