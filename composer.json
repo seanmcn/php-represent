@@ -1,5 +1,5 @@
 {
-  "name": "Seanmcn/php-represent",
+  "name": "seanmcn/php-represent",
   "description": "A PHP library for http://represent.opennorth.ca/",
   "keywords": [
     "opennorth",
@@ -12,7 +12,7 @@
     "psr-6",
     "psr6"
   ],
-  "homepage": "https://github.com/Seanmcn/php-represent",
+  "homepage": "https://github.com/seanmcn/php-represent",
   "type": "library",
   "license": "GPL-3.0+",
   "authors": [
