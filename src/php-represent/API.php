@@ -44,6 +44,7 @@ class API implements APIInterface
 
     /**
      * @param $limit
+     *
      * @return void
      */
     public function setRateLimit($limit)
@@ -109,10 +110,17 @@ class API implements APIInterface
 
         do {
             $this->rateLimit();
-            $resultSet = json_decode($this->simpleCurl($path, $params));
+            $resultSet = $this->simpleCurl($path, $params);
+            if ($resultSet === false) {
+                return false;
+            }
+
+            $resultSet = json_decode($resultSet);
             $more      = $resultSet->meta->next;
             $objects   = array_merge($objects, $resultSet->objects);
             $params['offset'] += $params['limit'];
+
+
         } while ($more !== null);
 
         return json_encode($objects);
@@ -164,9 +172,13 @@ class API implements APIInterface
             $path .= '/' . $boundarySet;
             if ($name !== null) {
                 $path .= '/' . $name;
+
                 if ($representatives) {
                     $path .= '/representatives';
+                } else {
+                    return $this->get($path, $params);
                 }
+
             }
         } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
             // Note: To get all boundaries we need to amp up the limit to not hit max execution time.
@@ -203,8 +215,8 @@ class API implements APIInterface
     {
         $path = 'representatives';
 
-        if($set !== null) {
-            $path .= '/'.$set;
+        if ($set !== null) {
+            $path .= '/' . $set;
         } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
             // Note: To get all representatives  we need to amp up the limit to not hit max execution time.
             $params['limit'] = 1000;
@@ -224,6 +236,7 @@ class API implements APIInterface
         $path = 'elections';
         if ($set !== null) {
             $path .= '/' . $set;
+
             return $this->get($path);
         }
 
@@ -241,8 +254,8 @@ class API implements APIInterface
         //Todo: Test when has data
         $path = 'candidates';
 
-        if($set !== null) {
-            $path .= '/'.$set;
+        if ($set !== null) {
+            $path .= '/' . $set;
         } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
             // Note: To get all candidates I'm guessing we need to amp up the limit to not hit max execution time.
             $params['limit'] = 1000;
@@ -292,7 +305,6 @@ class API implements APIInterface
 
         $ch = curl_init();
         curl_setopt_array($ch, ( $options + $defaults ));
-
 
 
         if ( ! $result = curl_exec($ch)) {
