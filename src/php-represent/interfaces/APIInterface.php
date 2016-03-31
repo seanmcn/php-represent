@@ -85,18 +85,18 @@ interface APIInterface
     public function representatives($set = null, array $params = []);
 
     /**
-     * @param null $set
+     * @param null $election
      *
      * @return mixed
      */
-    public function elections($set = null);
+    public function elections($election = null);
 
     /**
-     * @param null $set
+     * @param null $election
      * @param array $params
      *
      * @return mixed
      */
-    public function candidates($set = null, array $params = []);
+    public function candidates($election = null, array $params = []);
 
 }

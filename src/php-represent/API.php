@@ -226,16 +226,16 @@ class API implements APIInterface
     }
 
     /**
-     * @param null $set
+     * @param null $election
      *
      * @return bool|mixed|string
      */
-    public function elections($set = null)
+    public function elections($election = null)
     {
         //Todo: Test when has data
         $path = 'elections';
-        if ($set !== null) {
-            $path .= '/' . $set;
+        if ($election !== null) {
+            $path .= '/' . $election;
 
             return $this->get($path);
         }
@@ -244,18 +244,18 @@ class API implements APIInterface
     }
 
     /**
-     * @param null $set
+     * @param null $election
      * @param array $params
      *
      * @return mixed|string
      */
-    public function candidates($set = null, array $params = [])
+    public function candidates($election = null, array $params = [])
     {
         //Todo: Test when has data
         $path = 'candidates';
 
-        if ($set !== null) {
-            $path .= '/' . $set;
+        if ($election !== null) {
+            $path .= '/' . $election;
         } else if ( ! array_key_exists('sets', $params) && ! array_key_exists('limit', $params)) {
             // Note: To get all candidates I'm guessing we need to amp up the limit to not hit max execution time.
             $params['limit'] = 1000;
