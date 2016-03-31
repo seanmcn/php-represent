@@ -127,7 +127,7 @@ Returns a list of representatives.
 **Example Usage:**
 ```php
 $represent = new PHPRepresent\API();
-$represent->representativeSets('north-dumfries-township-council');
+$represent->representatives('house-of-commons');
 ```
 ###  elections($election);
 Returns a list of elections or a singular election.
