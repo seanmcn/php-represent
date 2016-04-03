@@ -1,8 +1,8 @@
 # PHP Represent
 
-> Find the elected officials and electoral districts for any Canadian address or postal code, at all levels of government
-
 A PHP library for [http://represent.opennorth.ca/](http://represent.opennorth.ca/)
+
+> Find the elected officials and electoral districts for any Canadian address or postal code, at all levels of government
 
 ## Install
 Install using composer:
