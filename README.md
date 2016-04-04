@@ -27,7 +27,8 @@ $represent->getAll('boundaries', ['sets' => ['toronto-wards', 'ottawa-wards']]);
 
 ### get($path, $params, $throttle);
 
-Returns a single result from API path and parameters provided.
+Returns a single result or one page of results from API path and 
+parameters provided.
 
 **Parameters**:
 - `$path` - The API Path of your request.
