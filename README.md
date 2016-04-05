@@ -1,5 +1,7 @@
 # PHP Represent
 
+[![Latest Stable Version](https://poser.pugx.org/seanmcn/php-represent/v/stable)](https://packagist.org/packages/seanmcn/php-represent) [![Total Downloads](https://poser.pugx.org/seanmcn/php-represent/downloads)](https://packagist.org/packages/seanmcn/php-represent) [![Latest Unstable Version](https://poser.pugx.org/seanmcn/php-represent/v/unstable)](https://packagist.org/packages/seanmcn/php-represent) [![License](https://poser.pugx.org/seanmcn/php-represent/license)](https://packagist.org/packages/seanmcn/php-represent)
+
 A PHP library for [http://represent.opennorth.ca/](http://represent.opennorth.ca/)
 
 > Find the elected officials and electoral districts for any Canadian address or postal code, at all levels of government
@@ -11,7 +13,6 @@ Install using composer:
   "seanmcn/php-represent": "1.*"
 }
 ```
-[https://packagist.org/packages/seanmcn/php-represent] ( View on Packagist) 
 
 Alternatively you could just download the package and load it in yourself.
 
