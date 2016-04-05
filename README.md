@@ -11,6 +11,7 @@ Install using composer:
   "seanmcn/php-represent": "1.*"
 }
 ```
+[https://packagist.org/packages/seanmcn/php-represent] ( View on Packagist) 
 
 Alternatively you could just download the package and load it in yourself.
 
