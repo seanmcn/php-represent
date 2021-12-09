@@ -24,7 +24,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $path     = 'boundaries';
         $params   = ['sets' => ['toronto-wards', 'ottawa-wards']];
         $response = $this->represent->get($path, $params);
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey('meta', $decoded);
@@ -39,7 +39,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $params   = ['sets' => 'toronto-wards,ottawa-wards'];
         $response = $this->represent->getAll($path, $params);
 
-        $isJson = $this->isJson($response);
+        $isJson = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
 
@@ -50,7 +50,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
     function testPostcode()
     {
         $response = $this->represent->postcode('L5G4L3');
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
 
@@ -64,7 +64,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
     function testBoundarySets()
     {
         $response = $this->represent->boundarySets();
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey(0, $decoded);
@@ -75,7 +75,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
     function testBoundaries()
     {
         $response = $this->represent->boundaries('toronto-wards');
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey(0, $decoded);
@@ -83,7 +83,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('name', $decoded[0]);
 
         $response = $this->represent->boundaries(null, null, false, ['sets' => ['toronto-wards', 'ottawa-wards']]);
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey(0, $decoded);
@@ -93,7 +93,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
 
     function testRepresentativeSets(){
         $response = $this->represent->representativeSets('north-dumfries-township-council');
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey('url', $decoded);
@@ -102,7 +102,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
 
     function testRepresentatives() {
         $response = $this->represent->representatives('house-of-commons');
-        $isJson   = $this->isJson($response);
+        $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey(0, $decoded);
@@ -115,7 +115,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
      *
      * @return bool
      */
-    static function isJson($string)
+    static function isDataJson($string)
     {
         if ($string === false) {
             return false;
