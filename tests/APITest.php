@@ -6,7 +6,7 @@
  * Date: 2016-03-28
  * Time: 11:54 PM
  */
-class APITest extends PHPUnit_Framework_TestCase
+class APITest extends PHPUnit\Framework\TestCase
 {
 
     /**
@@ -14,7 +14,7 @@ class APITest extends PHPUnit_Framework_TestCase
      */
     protected $represent;
 
-    function setUp()
+    protected function setUp(): void
     {
         $this->represent = new \PHPRepresent\API();
         $this->represent->setInsecure();

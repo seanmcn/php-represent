@@ -6,14 +6,14 @@
  * Date: 2016-04-03
  * Time: 10:46 AM
  */
-class DocsTest extends PHPUnit_Framework_TestCase
+class DocsTest extends PHPUnit\Framework\TestCase
 {
     /**
      * @var PHPRepresent\API()
      */
     protected $represent;
 
-    function setUp()
+    protected function setUp(): void
     {
         $this->represent = new \PHPRepresent\API();
         $this->represent->setInsecure();
@@ -29,7 +29,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $decoded = json_decode($response, true);
         $this->assertArrayHasKey('meta', $decoded);
         $this->assertArrayHasKey('objects', $decoded);
-        $this->assertInternalType("int", $decoded['meta']['total_count']);
+        $this->assertIsInt($decoded['meta']['total_count']);
         $this->assertGreaterThan(1, $decoded['meta']['total_count']);
     }
 
@@ -43,8 +43,8 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
 
-        $this->assertInternalType("array", $decoded);
-        $this->assertInternalType("array", $decoded[0]);
+        $this->assertIsArray($decoded);
+        $this->assertIsArray($decoded[0]);
     }
 
     function testPostcode()
