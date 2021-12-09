@@ -68,19 +68,19 @@ class APITest extends PHPUnit_Framework_TestCase
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
 
-        $response = $this->represent->boundaries('toronto-wards');
+        $response = $this->represent->boundaries('toronto-wards-2018');
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries(set) not returning JSON');
 
-        $response = $this->represent->boundaries('nova-scotia-electoral-districts', 'cape-breton-centre');
+        $response = $this->represent->boundaries('nova-scotia-electoral-districts-2019', 'halifax-citadel-sable-island');
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries(set, name) not returning JSON');
 
-        $response = $this->represent->boundaries('nova-scotia-electoral-districts', 'cape-breton-centre', TRUE);
+        $response = $this->represent->boundaries('nova-scotia-electoral-districts-2019', 'halifax-citadel-sable-island', TRUE);
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries(representatives) not returning JSON');
 
-        $response = $this->represent->boundaries('census-subdivisions', null, FALSE, ['name' => 'Niagara+Falls']);
+        $response = $this->represent->boundaries('census-subdivisions', null, FALSE, ['name' => 'Cape+Breton']);
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries(params) not returning JSON');
     }

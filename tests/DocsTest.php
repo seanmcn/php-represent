@@ -54,7 +54,8 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
 
-        $this->assertArrayHasKey('representatives_concordance', $decoded);
+        // It seems that the representatives_concordance key does not show up for this postcode any more
+        // $this->assertArrayHasKey('representatives_concordance', $decoded);
         $this->assertArrayHasKey('boundaries_centroid', $decoded);
         $this->assertArrayHasKey('representatives_centroid', $decoded);
         $this->assertArrayHasKey('boundaries_concordance', $decoded);
@@ -74,7 +75,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
 
     function testBoundaries()
     {
-        $response = $this->represent->boundaries('toronto-wards');
+        $response = $this->represent->boundaries('toronto-wards-2018');
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
@@ -82,7 +83,7 @@ class DocsTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('boundary_set_name', $decoded[0]);
         $this->assertArrayHasKey('name', $decoded[0]);
 
-        $response = $this->represent->boundaries(null, null, false, ['sets' => ['toronto-wards', 'ottawa-wards']]);
+        $response = $this->represent->boundaries(null, null, false, ['sets' => ['toronto-wards-2018', 'ottawa-wards']]);
         $isJson   = self::isDataJson($response);
         $this->assertTrue($isJson, 'Failed: boundaries() not returning JSON');
         $decoded = json_decode($response, true);
